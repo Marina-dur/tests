@@ -15,6 +15,7 @@
     "page:home": "tsx src/runners/ai/home-text-check.ts",
     "page:apple-watch": "tsx src/runners/ai/apple-watch-text-check.ts",
     "page:how-it-works": "tsx src/runners/ai/how-it-works-text-check.ts",
+    "page:ask-a-vet": "tsx src/runners/ai/ask-a-vet-text-check.ts",
     "pages:all": "npm-run-all --continue-on-error page:home page:apple-watch page:how-it-works",
     "lint": "eslint . --ext .js,.mjs,.cjs,.ts",
     "lint:fix": "eslint . --ext .js,.mjs,.cjs,.ts --fix",
