@@ -1,0 +1,49 @@
+{
+  "name": "ai-playwright-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:smoke": "playwright test tests/smoke",
+    "test:ai": "playwright test tests/ai",
+    "test:headed": "playwright test --headed",
+    "test:report": "playwright show-report",
+    "pw:install": "playwright install --with-deps",
+    "page:home": "tsx src/runners/ai/home-text-check.ts",
+    "page:apple-watch": "tsx src/runners/ai/apple-watch-text-check.ts",
+    "page:how-it-works": "tsx src/runners/ai/how-it-works-text-check.ts",
+    "pages:all": "npm-run-all --continue-on-error page:home page:apple-watch page:how-it-works",
+    "lint": "eslint . --ext .js,.mjs,.cjs,.ts",
+    "lint:fix": "eslint . --ext .js,.mjs,.cjs,.ts --fix",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "npm-run-all": "^4.1.5",
+    "openai": "^5.12.2",
+    "playwright": "^1.54.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.33.0",
+    "@types/node": "^24.3.0",
+    "@typescript-eslint/eslint-plugin": "^8.40.0",
+    "@typescript-eslint/parser": "^8.40.0",
+    "eslint": "^9.33.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-n": "^17.21.3",
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-promise": "^7.2.1",
+    "prettier": "^3.6.2",
+    "tsx": "^4.20.4",
+    "typescript": "^5.9.2"
+  }
+}
