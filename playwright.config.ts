@@ -6,7 +6,8 @@ dotenv.config();
 const baseURL = process.env.BASE_URL_DEV ?? "http://localhost:3000/";
 
 export default defineConfig({
-  testDir: "./tests",
+  testDir: "./src/specs", // points to your specs folder
+  testMatch: "*.spec.ts",
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,

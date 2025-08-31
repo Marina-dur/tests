@@ -1,5 +1,5 @@
 import { chromium } from "playwright";
-import { getHtml } from "../src/utils/html.js";
+import { getHtml } from "./html.js";
 import { aiCall } from "../tests/ai/text-quality.spec.js";
 
 export async function runTest(url: string): Promise<string> {

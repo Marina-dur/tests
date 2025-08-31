@@ -36,6 +36,7 @@
     "page:researchers-cats": "tsx src/runners/ai/researchers-cats-text-check.ts",
     "page:shop-cats": "tsx src/runners/ai/shop-cats-text-check.ts",
     "page:shop": "tsx src/runners/ai/shop-text-check.ts",
+    "buttons:links": "playwright test src/specs/buttons.spec.ts",
     "pages:all": "npm-run-all --continue-on-error page:home page:apple-watch page:how-it-works page:ask-a-vet page:share-with-vet page:product-specs page:journey page:pain-detection page:epilepsy page:senior-dogs page:anxiety page:pregnancy page:chronic page:proactive-health page:about-health page:vets page:shop-vets page:researchers page:publications page:home-cats page:vets-cats page:researchers-cats page:shop-cats page:shop",
     "lint": "eslint . --ext .js,.mjs,.cjs,.ts",
     "lint:fix": "eslint . --ext .js,.mjs,.cjs,.ts --fix",
@@ -53,6 +54,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
+    "@playwright/test": "^1.55.0",
     "@types/node": "^24.3.0",
     "@typescript-eslint/eslint-plugin": "^8.40.0",
     "@typescript-eslint/parser": "^8.40.0",

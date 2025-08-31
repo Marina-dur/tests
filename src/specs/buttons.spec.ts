@@ -1,17 +1,21 @@
 import { test } from "@playwright/test";
 import { buttonMap } from "../helpers/buttonMap.js";
-import { validateButtonNavigation } from "../../utils/buttonLinks.js";
+import { validateButtonNavigation } from "../../utils/validateButtonNavigation.js";
 
-for (const [pagePath, buttons] of Object.entries(buttonMap)) {
-  test.describe(`Button tests for ${pagePath}`, () => {
-    test.beforeEach(async ({ page }) => {
-      await page.goto(pagePath);
-    });
+test.describe("Button Navigation Tests", () => {
+  // Loop over all pages in the map
+  for (const [pagePath, buttons] of Object.entries(buttonMap)) {
+    // Loop over each button on the page
+    for (const { desc, selector, expectedUrl, targetSelector } of buttons) {
+      test(`Button "${selector}" on page "${pagePath}" should go to "${expectedUrl}"`, async ({
+        page,
+      }) => {
+        // Navigate to the page
+        await page.goto(pagePath);
 
-    for (const { selector, expectedUrl } of buttons) {
-      test(`"${selector}" should go to ${expectedUrl}`, async ({ page }) => {
-        return await validateButtonNavigation(page, selector, expectedUrl);
+        // Validate the button navigation
+        await validateButtonNavigation(page, desc, selector, expectedUrl, targetSelector, pagePath);
       });
     }
-  });
-}
+  }
+});
