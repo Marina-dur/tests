@@ -9,6 +9,7 @@ export type AppConfig = {
   baseUrlDev?: string;
   openAiKey?: string;
   baseUrlDevCats?: string;
+  baseUrlDevShop?: string;
 };
 
 export function getConfig(): AppConfig {
@@ -16,5 +17,6 @@ export function getConfig(): AppConfig {
     baseUrlDev: process.env.BASE_URL_DEV,
     openAiKey: process.env.OPENAI_API_KEY,
     baseUrlDevCats: process.env.BASE_URL_DEV_CATS,
+    baseUrlDevShop: process.env.BASE_URL_DEV_SHOP,
   };
 }
