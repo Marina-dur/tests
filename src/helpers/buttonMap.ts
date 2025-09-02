@@ -3,7 +3,7 @@ import { getConfig } from "../config/env.js";
 const config = getConfig();
 
 export const buttonMap = {
-  [config.baseUrlDev + "/"]: [
+  "/": [
     {
       desc: 'HomePage "Dog collar" hero button',
       selector: '[data-id="38670d6"]',
@@ -100,7 +100,56 @@ export const buttonMap = {
       expectedUrl: "/product/collar-v3/",
       targetSelector: '[data-id="d128612"]',
     },
+    {
+      desc: "HomePage GPS Tracking section, buy now button",
+      selector: ".elementor-element-f9e12b2 a",
+      expectedUrl: "/product/collar-v3/",
+      targetSelector: '[data-id="d128612"]',
+    },
+  ],
+  "/how-it-works/": [
+    {
+      desc: "How it works, Ready to take control section, Get started today button",
+      selector: ".elementor-element-5a8878c",
+      expectedUrl: "/product/collar-v3/",
+      targetSelector: '[data-id="d128612"]',
+    },
+    {
+      desc: "How it works, Ready to bring control section, Get petpace now button",
+      selector: ".elementor-element-3ae83c4 a",
+      expectedUrl: "/product/collar-v3/",
+      targetSelector: '[data-id="d128612"]',
+    },
   ],
 
-  [config.baseUrlDevCats + "/"]: [],
+  "/apple-watch": [
+    {
+      desc: "Apple watch, Wellbeing section, buy now button",
+      selector: ".elementor-element-0bb3352 a",
+      expectedUrl: "/product/collar-v3/",
+      targetSelector: '[data-id="d128612"]',
+    },
+    {
+      desc: "Apple watch, Always connected section, learn more button",
+      selector: '[data-id="9ad1571"]',
+      expectedUrl: "/how-it-works/",
+      targetSelector: ".elementor-element-29072dd",
+    },
+  ],
+  "/ask-a-vet/": [
+    {
+      desc: "Ask a vet, Have a question section, get petpace now button",
+      selector: ".elementor-element-f738681",
+      expectedUrl: "/product/collar-v3/",
+      targetSelector: '[data-id="d128612"]',
+    },
+  ],
+  "/use-cases/share-with-your-vet/": [
+    {
+      desc: "Share with your vet, Share With Your Vet section, learn more button",
+      selector: ".elementor-element-a400046 a",
+      expectedUrl: "",
+      targetSelector: "",
+    },
+  ],
 };

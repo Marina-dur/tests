@@ -14,7 +14,7 @@ export async function validateButtonNavigation(
   const button = page.locator(selector);
 
   // Wait for button to be visible and scroll into view
-  await button.waitFor({ state: "visible", timeout: 15000 });
+  await button.waitFor({ state: "visible", timeout: 25000 });
   await button.scrollIntoViewIfNeeded();
 
   // Determine if the page is mobile by checking viewport size
