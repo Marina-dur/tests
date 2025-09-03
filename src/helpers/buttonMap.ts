@@ -151,5 +151,11 @@ export const buttonMap = {
       expectedUrl: "",
       targetSelector: "",
     },
+    {
+      desc: "Share with your vet, Track, Share section, Shop the collar button",
+      selector: ".elementor-element-a400046 a",
+      expectedUrl: "",
+      targetSelector: "",
+    },
   ],
 };

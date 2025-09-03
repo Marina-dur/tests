@@ -13,9 +13,23 @@ export async function validateButtonNavigation(
 ) {
   const button = page.locator(selector);
 
-  // Wait for button to be visible and scroll into view
-  await button.waitFor({ state: "visible", timeout: 25000 });
-  await button.scrollIntoViewIfNeeded();
+  // Wait for button to be attached to the DOM
+  await button.waitFor({ state: "attached", timeout: 20000 });
+
+  // Make sure the button is visible even if Elementor has animation
+  await page.evaluate((sel) => {
+    const el = document.querySelector(sel);
+    if (el) el.classList.remove("elementor-invisible");
+  }, selector);
+
+  // Scroll button into view (centered)
+  await page.evaluate((sel) => {
+    const el = document.querySelector(sel);
+    if (el) el.scrollIntoView({ block: "center", inline: "center" });
+  }, selector);
+
+  // Wait for button to be visible after scrolling
+  await button.waitFor({ state: "visible", timeout: 20000 });
 
   // Determine if the page is mobile by checking viewport size
   const isMobile = page.viewportSize()?.width! <= 768;
