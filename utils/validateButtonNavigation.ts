@@ -1,58 +1,62 @@
-import { Page } from "@playwright/test";
+import { Page, expect } from "@playwright/test";
 
 /**
  * Validates that a button redirects to the expected page.
+ * Works for same-tab navigation or new-tab links.
  */
 export async function validateButtonNavigation(
   page: Page,
   desc: string,
   selector: string,
   expectedUrl: string,
-  targetSelector: string,
-  pagePath: string
+  opensInNewTab: boolean = false
 ) {
   const button = page.locator(selector);
 
-  // Wait for button to be attached to the DOM
-  await button.waitFor({ state: "attached", timeout: 20000 });
+  if (!expectedUrl || expectedUrl.trim() === "") {
+    throw new Error(`❌ Missing expectedUrl for button: "${desc}" (${selector})`);
+  }
 
-  // Make sure the button is visible even if Elementor has animation
+  // Wait until button is attached and visible
+  await button.waitFor({ state: "attached", timeout: 20000 });
   await page.evaluate((sel) => {
     const el = document.querySelector(sel);
     if (el) el.classList.remove("elementor-invisible");
   }, selector);
-
-  // Scroll button into view (centered)
-  await page.evaluate((sel) => {
-    const el = document.querySelector(sel);
-    if (el) el.scrollIntoView({ block: "center", inline: "center" });
-  }, selector);
-
-  // Wait for button to be visible after scrolling
+  await button.scrollIntoViewIfNeeded();
   await button.waitFor({ state: "visible", timeout: 20000 });
 
-  // Determine if the page is mobile by checking viewport size
+  // Detect mobile
   const isMobile = page.viewportSize()?.width! <= 768;
 
-  // Click or tap depending on device
-  if (isMobile) {
-    await button.tap();
+  let targetPage: Page | null = null;
+
+  if (opensInNewTab) {
+    // Wait for popup/new tab
+    [targetPage] = await Promise.all([
+      page.waitForEvent("popup"),
+      isMobile ? button.tap() : button.click(),
+    ]);
   } else {
-    await button.click();
+    // Same-tab click/tap
+    if (isMobile) {
+      await button.tap();
+    } else {
+      await button.click();
+    }
+    targetPage = page;
   }
 
-  // Wait for the target element to appear on the next page
-  await page.locator(targetSelector).first().waitFor({ state: "visible", timeout: 20000 });
+  // Wait for navigation
+  await targetPage.waitForLoadState("load");
 
-  // Log current URL just for reporting
-  const currentUrl = page.url();
-  if (!currentUrl.includes(expectedUrl)) {
-    console.warn(
-      `⚠️ Button desc: ${desc}\n Button "${selector}" on page ${pagePath} navigated to unexpected URL: ${currentUrl}`
-    );
-  } else {
-    console.log(
-      `✅ Button desc: ${desc}\n Button "${selector}" on page ${pagePath} navigated to ${currentUrl}`
-    );
-  }
+  // Determine final URL
+  const finalUrl = expectedUrl.startsWith("http")
+    ? expectedUrl
+    : new URL(expectedUrl, page.url()).href;
+
+  // Assert URL
+  await expect(targetPage).toHaveURL(finalUrl);
+
+  console.log(`✅ Button "${desc}" navigated to ${finalUrl}`);
 }
